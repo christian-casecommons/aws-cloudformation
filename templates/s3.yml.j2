@@ -1,0 +1,67 @@
+AWSTemplateFormatVersion: "2010-09-09"
+
+Description: S3 Bucket and Policy stack
+
+Resources:
+
+{% for bucket_name, bucket_config in (config_s3_buckets|default({})).items() %}
+{% set resource = bucket_name |
+    regex_replace('[^a-zA-Z0-9]', ' ') |
+    title |
+    regex_replace('\s', '')
+%}
+{% set properties = [
+  "AccessControl",
+] %}
+
+  {{ resource }}Bucket:
+    Type: AWS::S3::Bucket
+    DeletionPolicy: "{{ bucket_config.DeletionPolicy|default("Retain") }}"
+    Properties:
+      BucketName: "{{ bucket_name }}"
+      Tags:
+        -
+          Key: Name
+          Value: "{{ bucket_name }}"
+{% for key, value in (Stack.Tags|default({})).items() %}
+        -
+          Key: "{{ key }}"
+          Value: "{{ value }}"
+{% endfor %}
+
+{% for property in properties %}
+{% if bucket_config[property]|default(False) %}
+      {{ property }}: "{{ bucket_config[property] }}"
+{% endif %}
+{% endfor %}
+
+{% if bucket_config.WebsiteConfiguration|default(False) %}
+      WebsiteConfiguration:
+        IndexDocument: "{{ bucket_config.WebsiteConfiguration.IndexDocument }}"
+        ErrorDocument: "{{ bucket_config.WebsiteConfiguration.ErrorDocument }}"
+{% endif %}
+
+{% if bucket_config.Policies|default(False) %}
+  {{ resource }}BucketPolicy:
+    Type: AWS::S3::BucketPolicy
+    Properties:
+      Bucket:
+        Ref: "{{ resource }}Bucket"
+      PolicyDocument:
+        Statement:
+
+{% for policy_name in bucket_config.Policies|default([]) %}
+{% set policy = config_s3_policies[policy_name]|default(None) %}
+        - Sid: "{{ resource }}{{ policy_name }}BucketPolicy"
+          Effect: "{{ policy.Effect }}"
+          Principal: "{{ policy.Principal }}"
+          Resource: "arn:aws:s3:::{{ bucket_name }}{{ policy.Resource }}"
+          Action:
+{% for action in policy.Action %}
+            - "{{ action }}"
+{% endfor %}
+
+{% endfor %}
+{% endif %}
+
+{% endfor %}
