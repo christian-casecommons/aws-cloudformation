@@ -268,6 +268,10 @@ The following is an example of a playbook configured to use this role.  Note the
 
 ## Release Notes
 
+### Version 0.10.1
+
+- **BUG FIX** : Removed jinja references to Stack.Name in template s3.yml.j2 since it is redundant and susceptible to breakage `./templates/s3.yml/j2`
+
 ### Version 0.10.0
 
 - **NEW FEATURE** : Added generic [cloudfront template](`https://github.com/Casecommons/aws-cloudformation/pull/2`)
