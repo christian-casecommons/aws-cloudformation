@@ -268,6 +268,10 @@ The following is an example of a playbook configured to use this role.  Note the
 
 ## Release Notes
 
+### Version 0.9.6
+
+- **BUG FIX** : Set s3 module region to "global" in `./tasks/s3.yml`
+
 ### Version 0.9.5
 
 - **ENHANCEMENT** : Include stack tags with generated `config.json` files
