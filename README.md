@@ -289,8 +289,10 @@ The following is an example of a playbook configured to use this role.  Note the
     * Added default of postgres for database type
 
 - **ENHANCEMENT** : Added thin-slice template to define security groups `./templates/security_group.yml.j2`
-- **ENHANCEMENT** : Added thin-slice template to define ECS resources, healthchecks and alarms `./templates/ecs.yml.j2`
+- **ENHANCEMENT** : Added thin-slice template to define ECS cluster resources, healthchecks and alarms `./templates/ecs.yml.j2`
 - **ENHANCEMENT** : Added thin-slice template to encapsulate use of kms decrypt lambda functionality `./templates/ecs.yml.j2`
+- **ENHANCEMENT** : Added thin-slice template to define ECS service and task resources, healthchecks and alarms in  `./templates/ecs_service.yml.j2`
+
 
 ### Version 0.9.5
 
