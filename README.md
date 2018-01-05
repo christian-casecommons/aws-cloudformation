@@ -281,6 +281,9 @@ The following is an example of a playbook configured to use this role.  Note the
     * Added defaults and conditionals for target group in the case that those are registered separetely in `./templates/alb_target.yml.j2`
     * Added additional healthchecks/alarms for target group
 
+- **ENHANCEMENT** : Updated dns template `./templates/dns.yml.j2`
+    * Allow for passing mapping when defining dns records
+
 - **ENHANCEMENT** : Added thin-slice template to define security groups `./templates/security_group.yml.j2`
 - **ENHANCEMENT** : Added thin-slice template to define ECS resources, healthchecks and alarms `./templates/ecs.yml.j2`
 
