@@ -282,6 +282,7 @@ The following is an example of a playbook configured to use this role.  Note the
     * Added additional healthchecks/alarms for target group
 
 - **ENHANCEMENT** : Added thin-slice template to define security groups `./templates/security_group.yml.j2`
+- **ENHANCEMENT** : Added thin-slice template to define ECS resources, healthchecks and alarms `./templates/ecs.yml.j2`
 
 
 ### Version 0.9.5
