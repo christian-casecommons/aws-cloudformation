@@ -268,6 +268,22 @@ The following is an example of a playbook configured to use this role.  Note the
 
 ## Release Notes
 
+### Version 1.0.0
+
+- **ENHANCEMENT** : Updated autoscaling group template `./templates/asg.yml.j2`
+    * Add parameter for custom ecs cluster
+    * Updated UserData to deal with custom ecs cluster
+    * Added AmazonEC2ContainerServiceforEC2Role to autoscaling iam role
+    * Added conditional checks for custom ecs cluster
+
+- **ENHANCEMENT** : Updated application load balancing template `./templates/alb.yml.j2`
+    * Added defaults and conditionals for dns domain and host name in case that those are registered separately in `./templates/dns.yml.j2`
+    * Added defaults and conditionals for target group in the case that those are registered separetely in `./templates/alb_target.yml.j2`
+    * Added additional healthchecks/alarms for target group
+
+- **ENHANCEMENT** : Added thin-slice template to define security groups `./templates/security_group.yml.j2`
+
+
 ### Version 0.9.5
 
 - **ENHANCEMENT** : Include stack tags with generated `config.json` files
