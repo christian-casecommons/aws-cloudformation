@@ -293,6 +293,7 @@ The following is an example of a playbook configured to use this role.  Note the
 - **ENHANCEMENT** : Added thin-slice template to encapsulate use of kms decrypt lambda functionality `./templates/decrypt.yml.j2`
 - **ENHANCEMENT** : Added thin-slice template to define ECS service and task resources, healthchecks and alarms in  `./templates/ecs_service.yml.j2`
 - **ENHANCEMENT** : Added thin-slice template to encapsulate usage of generic lambda function `./templates/lambda.yml.j2`
+- **ENHANCEMENT** : Added ansible filter plugin to determine current timestamp `./filter_plugins/timestamp.py`
 
 ### Version 0.9.5
 
