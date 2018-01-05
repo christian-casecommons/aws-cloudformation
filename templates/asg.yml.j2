@@ -416,8 +416,12 @@ Resources:
       - EcsInitLogGroup
       - EcsAgentLogGroup
     UpdatePolicy:
-      AutoScalingReplacingUpdate:
-        WillReplace: 'true'
+      AutoScalingRollingUpdate:
+        MinInstancesInService:
+          Ref: DesiredCount
+        MinSuccessfulInstancesPercent: 100
+        WaitOnResourceSignals: "true"
+        PauseTime: PT15M
     CreationPolicy:
       ResourceSignal:
         Count:
