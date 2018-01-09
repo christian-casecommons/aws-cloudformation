@@ -535,8 +535,6 @@ Resources:
   InstanceRole:
     Type: AWS::IAM::Role
     Properties:
-      ManagedPolicyArns:
-        - arn:aws:iam::aws:policy/service-role/AmazonEC2ContainerServiceforEC2Role
       AssumeRolePolicyDocument:
         Version: "2012-10-17"
         Statement:
@@ -550,34 +548,31 @@ Resources:
           PolicyDocument:
             Version: "2012-10-17"
             Statement:
-            - Effect: Allow
-              Action:
-              - ecs:RegisterContainerInstance
-              - ecs:DeregisterContainerInstance
-              Resource:
-                Fn::If:
-                  - CustomEcsClusterExists
-                  - Ref: CustomEcsClusterArn
-                  - Fn::Sub: arn:aws:ecs:${AWS::Region}:${AWS::AccountId}:cluster/${EcsCluster}
-            - Effect: Allow
-              Action:
-              - ecs:DiscoverPollEndpoint
-              - ecs:Submit*
-              - ecs:Poll
-              - ecs:StartTelemetrySession
-              Resource: "*"
-            - Effect: Allow
-              Action:
-              - ecr:BatchCheckLayerAvailability
-              - ecr:BatchGetImage
-              - ecr:GetDownloadUrlForLayer
-              - ecr:GetAuthorizationToken
-              Resource: "*"
-            - Effect: Allow
-              Action:
-              - kms:Decrypt
-              Resource:
-                Fn::ImportValue: CfnMasterKeyArn
+              - Effect: Allow
+                Action:
+                  - ecs:RegisterContainerInstance
+                  - ecs:DeregisterContainerInstance
+                Resource:
+                  Fn::Sub: arn:aws:ecs:${AWS::Region}:${AWS::AccountId}:cluster/${ApplicationCluster}
+              - Effect: Allow
+                Action:
+                  - ecs:DiscoverPollEndpoint
+                  - ecs:Submit*
+                  - ecs:Poll
+                  - ecs:StartTelemetrySession
+                Resource: "*"
+              - Effect: Allow
+                Action:
+                  - ecr:BatchCheckLayerAvailability
+                  - ecr:BatchGetImage
+                  - ecr:GetDownloadUrlForLayer
+                  - ecr:GetAuthorizationToken
+                Resource: "*"
+              - Effect: Allow
+                Action:
+                - kms:Decrypt
+                Resource:
+                  Fn::ImportValue: CfnMasterKeyArn
         - PolicyName: CloudWatchLogs
           PolicyDocument:
             Version: "2012-10-17"
