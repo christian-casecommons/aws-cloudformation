@@ -548,8 +548,11 @@ Resources:
                 Action:
                   - ecs:RegisterContainerInstance
                   - ecs:DeregisterContainerInstance
-                Resource:
-                  Fn::Sub: arn:aws:ecs:${AWS::Region}:${AWS::AccountId}:cluster/${EcsCluster}
+              Resource:
+                Fn::If:
+                  - CustomEcsClusterExists
+                  - Ref: CustomEcsClusterArn
+                  - Fn::Sub: arn:aws:ecs:${AWS::Region}:${AWS::AccountId}:cluster/${EcsCluster}
               - Effect: Allow
                 Action:
                   - ecs:DiscoverPollEndpoint
