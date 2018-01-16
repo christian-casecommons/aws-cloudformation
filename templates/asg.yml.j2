@@ -388,11 +388,11 @@ Resources:
                 trap 'kill $(jobs -p)' EXIT
                 tail --retry -F /var/log/cfn-init.log >> /dev/console &
                 /opt/aws/bin/cfn-init -v --stack ${AWS::StackName} \
-                  --resource ${Name}LaunchConfiguration --region ${AWS::Region} \
+                  --resource ${ResourcePrefix}LaunchConfiguration --region ${AWS::Region} \
                   --http-proxy ${ProxyUrl} \
                   --https-proxy ${ProxyUrl}
                 /opt/aws/bin/cfn-signal -e $? --stack ${AWS::StackName} \
-                  --resource ${Name}AutoscalingGroup --region ${AWS::Region} \
+                  --resource ${ResourcePrefix}AutoscalingGroup --region ${AWS::Region} \
                   --http-proxy ${ProxyUrl} \
                   --https-proxy ${ProxyUrl}
             - Fn::Sub: |
@@ -400,9 +400,9 @@ Resources:
                 trap 'kill $(jobs -p)' EXIT
                 tail --retry -F /var/log/cfn-init.log >> /dev/console &
                 /opt/aws/bin/cfn-init -v --stack ${AWS::StackName} \
-                  --resource ${Name}LaunchConfiguration --region ${AWS::Region}
+                  --resource ${ResourcePrefix}LaunchConfiguration --region ${AWS::Region}
                 /opt/aws/bin/cfn-signal -e $? --stack ${AWS::StackName} \
-                  --resource ${Name}AutoscalingGroup --region ${AWS::Region}
+                  --resource ${ResourcePrefix}AutoscalingGroup --region ${AWS::Region}
   AutoscalingGroup:
     Type: AWS::AutoScaling::AutoScalingGroup
     DependsOn:
