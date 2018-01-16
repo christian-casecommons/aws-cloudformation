@@ -549,7 +549,7 @@ Resources:
                   - ecs:RegisterContainerInstance
                   - ecs:DeregisterContainerInstance
                 Resource:
-                  Fn::Sub: arn:aws:ecs:${AWS::Region}:${AWS::AccountId}:cluster/${ApplicationCluster}
+                  Fn::Sub: arn:aws:ecs:${AWS::Region}:${AWS::AccountId}:cluster/${EcsCluster}
               - Effect: Allow
                 Action:
                   - ecs:DiscoverPollEndpoint
