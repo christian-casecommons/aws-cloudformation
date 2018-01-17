@@ -457,6 +457,7 @@ Resources:
 
   ToTargetGroupIngress:
     Type: AWS::EC2::SecurityGroupIngress
+    Condition: TargetSecurityGroupEnabled
     Properties:
       IpProtocol: tcp
       FromPort:
@@ -469,6 +470,7 @@ Resources:
         Ref: SecurityGroup
   ToTargetGroupEgress:
     Type: AWS::EC2::SecurityGroupEgress
+    Condition: TargetSecurityGroupEnabled
     Properties:
       IpProtocol: tcp
       FromPort:
